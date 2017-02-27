@@ -40,7 +40,8 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Log In"/>
                                 <connections>
-                                    <segue destination="HNk-Sf-QqO" kind="modal" id="AUq-GC-qQA"/>
+                                    <action selector="loginButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0kt-EM-tXz"/>
+                                    <segue destination="HNk-Sf-QqO" kind="presentation" id="u03-R0-rTv"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zgb-6f-up6">
@@ -48,7 +49,8 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Sign Up"/>
                                 <connections>
-                                    <segue destination="HNk-Sf-QqO" kind="modal" id="fZJ-xF-gY3"/>
+                                    <action selector="signupButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OuM-7B-k9F"/>
+                                    <segue destination="HNk-Sf-QqO" kind="presentation" id="h2f-nT-hzI"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fhz-Tz-fSo">
@@ -69,9 +71,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
-                        <outlet property="logInButton" destination="sRc-db-x7m" id="ilw-I1-0PX"/>
                         <outlet property="passwordTextField" destination="Fhz-Tz-fSo" id="AKb-FK-lPy"/>
-                        <outlet property="signUpButton" destination="zgb-6f-up6" id="pTq-Xj-ki6"/>
                         <outlet property="usernameTextField" destination="RHF-U3-zox" id="qfN-wS-wZ7"/>
                     </connections>
                 </viewController>
@@ -100,7 +100,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="63"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0lS-pk-Fta" id="Xjj-eC-CzD">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="62"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="63"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="messages go here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Og2-Gx-xxy">
@@ -151,7 +151,7 @@
         <!--Navigation Controller-->
         <scene sceneID="PLg-Ft-N7R">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HNk-Sf-QqO" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavController" automaticallyAdjustsScrollViewInsets="NO" id="HNk-Sf-QqO" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="OiR-Gd-A6D">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -168,6 +168,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="fZJ-xF-gY3"/>
+        <segue reference="u03-R0-rTv"/>
     </inferredMetricsTieBreakers>
 </document>
