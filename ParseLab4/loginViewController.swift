@@ -25,46 +25,46 @@ class loginViewController: UIViewController  {
     
     
     @IBAction func loginButton(_ sender: Any) {
-        PFUser.logInWithUsername(inBackground: "usernameTextField", password: "passwordTextField") {
+        
+        let username = usernameTextField.text!
+        let password = passwordTextField.text!
+        PFUser.logInWithUsername(inBackground: username, password: password) {
             (user: PFUser?, error: Error?) -> Void in
             if let error = error {
                 print(error.localizedDescription)
                 print("error w log in")
+                //put the alert here and stop user from logging in
             } else {
                 print("Logged in!");
+                //todo: perform segue to go to chat view controller
+                self.performSegue(withIdentifier: "successLogin", sender: nil)
+                
             }
             
         }
+    }
+    
+    @IBAction func signupButton(_ sender: Any) {
+        var user = PFUser()
+        user.username = usernameTextField.text
+        user.password = passwordTextField.text
         
-       // @IBAction
-        func signupButton(_ sender: Any) {
-            var user = PFUser()
-            user.username = usernameTextField.text
-            user.password = passwordTextField.text
-            
-            user.signUpInBackground () {
-                (succeeded: Bool?, error: Error?) -> Void in
-                if error == nil {
-                    let errorString = ["error"]
-                    print("error with signup")
-                } else {
-                    self.performSegue(withIdentifier: "createNewUserAndGoToDashboard", sender: self)
-                    print("sucess")
-                }
+        user.signUpInBackground () {
+            (succeeded: Bool?, error: Error?) -> Void in
+            if error == nil {
+                self.performSegue(withIdentifier: "successLogin", sender: self)
+                print("sucess")
+            } else {
+                let errorString = error?.localizedDescription
+                print(errorString)
+                
             }
         }
+    }
     /*    var currentUser = PFUser.current()
-        if currentUser != nil {
-        } else {
-            // Show the signup or login screen
-            //put the error or alert thing here
-        } */
-    }
-    
-    
-    func loginSegue() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "NavController")
-        self.present(vc, animated: true, completion: nil)
-    }
+     if currentUser != nil {
+     } else {
+     // Show the signup or login screen
+     //put the error or alert thing here
+     } */
 }

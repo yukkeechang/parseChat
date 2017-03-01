@@ -25,30 +25,26 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         Timer.scheduledTimer(timeInterval: 1, target: self , selector: #selector(onTimer), userInfo: nil, repeats: true)
     }
-    
-    
-    
+
     
     @IBAction func sendMessage(_ sender: Any) {
-      let Message = PFObject(className:"Message")
-        
-       Message["text"] = textTextField.text
-        //this should mean that my text which a is message in pfobject goes into the textfield
-       Message["user"] = PFUser.current()
-        
+        let Message = PFObject(className:"Message")
+        if let texts = Message["text"] as! String? {
+        let texts = textTextField.text
+        }
+        //my text which a is an object in a class Message in pfobject goes into the textfield
+        Message["user"] = PFUser.current()
         Message.saveInBackground { (Bool, error) in
             //this should mean that anyone's messages including mine should be saved
-            
-            
             if let error = error {
                 let errorString = error.localizedDescription
-                //basically let errorString == to wahtever the error is
-                print("error")
-                print(errorString)
+                // why does error have to be in a if let statement? because its a parameter and might be nil?
+                print("error: \(errorString)")
             } else {
                 print("messages can be saved")
             }
         }
+        //my message at this point should be saved in background
         
     }
     
@@ -57,17 +53,21 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let query = PFQuery(className:"Message")
         query.order(byDescending: "createdAt")
         query.includeKey("user")
+        //messages to be displayed in order
         
         query.findObjectsInBackground { (objects, error) in
             if error == nil {
                 print("Successfully retrieved \(objects?.count)")
-                //what's the point of this again..it doesn't print the above message but it prints messages from other people..so this works!
+                //finding objects in background...if error doesn't exist, object is in background
                 if let objects = objects {
                     for object in objects {
                         print(object)
                         let text = object["text"] as? String
+                        //make the text the value(key) of the object
+                        //my messages at this point should be like all the messages saved in the background
                         self.messages.append(text)
                     }
+                    //objects might be an optional
                     self.tableView.reloadData()
                     
                 }
@@ -78,9 +78,9 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "chatCell", for: indexPath as IndexPath) as! chatCell
-       let text =  messages[indexPath.row]
-       cell.messagesLabel.text = text
-        
+        let text =  messages[indexPath.row]
+        cell.messagesLabel.text = text
+        //lets the text of others be displayed in each cell
         return cell
     }
     
@@ -88,17 +88,4 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return messages.count
         //the number of chats are number of cells
     }
-    
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
